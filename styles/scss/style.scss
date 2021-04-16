@@ -1,0 +1,719 @@
+@import 'variable';
+@import 'extend';
+@import 'mixin';
+@import 'common_style';
+h1 {
+    color: green;
+}
+body {
+    font: {
+        family: $font-stack;
+    }
+}
+html {
+    scroll-behavior: smooth;
+}
+.but-to-top {
+    @extend %center-xy-flex;
+    position: fixed;
+    top: 90%;
+    left: -100px;
+    @include button(32px, 32px, 50%, $but-to-top-color, $element-color, $text-color);
+    transition-property: background, left;
+    transition-duration: .2s; 
+    z-index: 3;
+    &-text {
+        transform: rotateZ(90deg);
+        color: $title-color;
+    }
+    &_active {
+        left: 20px;
+    }
+}
+.header {
+    &__nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        background: $section-bgcolor-1;
+    }
+    &__menu-wrapper {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        z-index: 1;
+        @media screen and (max-width: $header-nav-breakpoint_1) {
+            position: fixed;
+            top: 100%;
+            left: -110%;
+            height: 100vh;
+            flex-flow: column;
+            justify-content: flex-start;
+            padding-bottom: 50px;
+            background: rgba(0, 0, 0, .9);
+            transition: left .3s;
+            overflow-y: auto;
+        }
+    }
+    &__menu-wrapper_active {
+        left: 0;
+    }
+    &__menu {
+        display: flex;
+        margin: 0 auto;
+        align-items: center;
+        list-style-type: none;
+        @media (max-width: $header-nav-breakpoint_1) {
+            flex-flow: column;
+            margin: 50px 0 0 0;
+        }
+        li > a {
+            transition: color .2s;
+            text-transform: capitalize;
+            text-decoration: none;
+            @include font(400, 14px, 30px, $text-color);
+        }
+        li > a:hover {
+            color: $header-button-color;
+        }
+        li {
+            margin-right: 40px;
+            @media (max-width: $header-nav-breakpoint_1) {
+                margin: 0;
+            }
+        }
+        li:last-child {
+            margin-right: 0;
+        }
+    }
+    &__button {
+        display: flex;
+        align-items: center;
+        @media screen and (max-width: $header-nav-breakpoint_1) {
+            justify-content: center;
+            margin: 50px 0 30px 0;
+        }
+        &-link {
+            margin-right: 30px;
+            text-decoration: none;
+        }
+        &-link > strong {
+            transition: color .2s;
+            @include font(500, 16px, 19px, $title-color);
+            text-transform: capitalize;
+            @media screen and (max-width: $header-nav-breakpoint_1) {
+                color: $text-color;
+            } 
+        }
+        &-link:hover strong {
+            color: $header-button-color;
+        }
+        &-item {
+            @include button(150px, 45px, 50px, $button-bg, $header-button-color, $button-default-text-color);
+            border: 1px solid $header-button-color;
+            &-text {
+                text-transform: capitalize;
+                @include font(500, 16px, 19px, $header-button-color);
+            }
+        }
+    }
+    &__body {
+        @extend %flex-wrap;
+        justify-content: space-between;
+        margin-top: 88px;
+        padding-bottom: 70px;
+        &-text {
+            flex: 0 1 48%;
+            margin-right: 20px;
+            @media screen and (max-width: 711px) {
+                flex-basis: 100%;
+                text-align: center;
+            }
+        }
+        &-title {
+            @include font(500, 50px, 70px, $title-color);
+        }
+        &-subtitle {
+            @include font(400, 16px, 30px, $text-color);
+        }
+        &-button {
+            margin-top: 50px;
+            box-shadow: 0 18px 15px 0px rgba(245, 56, 56, 0.35);
+            @include button($bg-hover-color: $header-button-color,$box-shadow-hover: 2px 2px 2px);
+            @media screen and (max-width: 711px) {
+                margin: 50px auto 0 auto;
+            }
+            &-text {
+                text-transform: capitalize;
+                @include font(700, 16px, 25px, $button-default-text-color);
+            }
+        }
+        &-img {
+            flex: 0 1 49%;
+            @media screen and (max-width: 711px) {
+                height: 400px;
+                flex-basis: 100%;
+                margin: 50px 0 0 0;
+
+            }
+            & img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+    &__burger {
+        display: none;
+        @include burger(36px, 25px, 2px, $element-color);
+        @media screen and (max-width: $header-nav-breakpoint_1) {
+            display: block;
+        }
+    }
+}
+// data s
+.data {
+    padding: 30px 0;
+    background: $section-bgcolor-1;
+    &__row {
+        @extend %flex-wrap;
+    }
+    &__column {
+        position: relative;
+        @extend %center-xy-flex;
+        flex: 1 0 33%;
+        padding: 40px 0;  
+        @media screen and (max-width: $data-breakpoint_1) {
+            flex-basis: 34%;
+        }
+        @media screen and (max-width: $data-breakpoint_2) {
+            flex-basis: 100%;
+            padding: 50px 0;  
+        }
+        &:nth-child(1) {
+            &::before {
+                @include pseudo-element (2px, 80%);
+            }
+            @media screen and (max-width: $data-breakpoint_2) {
+                &::before {
+                    @include pseudo-element (80%, 2px, $top: 100%, $left: 50%, $transform: translate(-50%, 0));
+                }
+            }
+        }
+        &:nth-child(2) {
+            &::before {
+                @include pseudo-element (2px, 80%);
+            }
+            @media screen and (max-width: $data-breakpoint_1) {
+                &::before {
+                    display: none;
+                }
+            }
+            @media screen and (max-width: $data-breakpoint_2) {
+                &::before {
+                    display: block;
+                    @include pseudo-element (80%, 2px, $top: 100%, $left: 50%, $transform: translate(-50%, 0));
+                }
+            }
+        }
+
+    }
+    &__icon {
+        @extend %center-xy-flex;
+        flex-shrink: 0;
+        width: 55px;
+        height: 55px;
+        margin-right: 35px;
+        background: #FFECEC;
+        border-radius: 50%;
+        & > i {
+            font-size: 22px;
+            color: $element-color;
+        }
+    }
+    &__text {
+        &-digit {
+            @include font(700, 25px, 30px, $title-color);
+        }
+        &-word {
+            text-transform: capitalize;
+            @include font(400, 20px, 30px, $text-color);
+        }
+    }
+}
+// data f
+// features s
+.features {
+    padding: 70px 0;
+    background: $section-bgcolor-2;
+    &__wrap {
+        @extend %flex-wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__img {
+        flex: 0 1 45%;
+        height: 414px;
+        margin-right: 50px;
+        @media screen and(max-width: $features-breakpoint_1) {
+            flex: 0 1 100%;
+            margin: 0 0 50px 0;
+        }
+        &-item {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__text {
+        flex: 0 1 45%;
+        @media screen and(max-width: $features-breakpoint_1) {
+            flex: 0 1 100%;
+            text-align: center;
+        }
+        &-title {
+            margin-bottom: 20px;
+            text-transform: capitalize;
+            @include font(500, 35px, 50px, $title-color);
+        }
+        &-subtitle {
+            margin-bottom: 20px;
+            @include font(500, 16px, 30px, $text-color);
+        }
+    }
+    &__option {
+        &-column {
+            @media screen and(max-width: $features-breakpoint_1) {
+                justify-content: center;
+            }
+        }
+        &-column:not(:last-child) {
+            margin-bottom: 15px;
+        }
+        &-icon {
+            height: 20px;
+            width: 20px;
+            margin-right: 12px;    
+            background: $check-mark-bg;
+            border-radius: 50%;
+            & .fa-check {
+                color: $check-mark-color;
+                font-size: 12px;
+            }
+        }
+        &-text {
+            @include font(500, 14px, 30px, $text-color);
+        }
+    }
+}
+// features f
+// plan s
+.plan {
+    padding: 70px 0 70px 0;
+    background: $section-bgcolor-3;
+    &__title {
+        text-transform: capitalize;
+        text-align: center;
+        margin-bottom: 20px;
+        @include font(500, 35px, 50px, $title-color);
+    }
+    &__subtitle {
+        margin-bottom: 60px;
+        text-align: center;
+        @include font(500, 16px, 30px, $text-color);
+    }
+    &__row {
+        @extend %flex-wrap;
+        justify-content: space-between;
+        @media screen and(max-width: $plan-breakpoint_1) {
+            justify-content: space-evenly;
+        }
+        @media screen and(max-width: $plan-breakpoint_2) {
+            justify-content: center;
+        }
+    }
+    &__column {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        padding: 97px 75px 50px 75px;
+        background: $element-bgcolor;
+        border: 2px solid $element-border-color;
+        border-radius: 10px;
+        margin: 10px;
+        transition-property: border-color, box-shadow;
+        transition: .2s;
+        &:hover {
+            border: 2px solid $element-color;
+            box-shadow: 1px 1px 13px 4px;
+        }
+        &-icon {
+            width: 146px;
+            height: 167px;
+            margin-bottom: 30px;
+            &-item {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        &-title {
+            margin-bottom: 30px;
+            text-transform: capitalize;
+            @include font(500, 18px, 30px, $title-color);
+        }
+        @media screen and(max-width: $plan-breakpoint_1) {
+            flex: 0 1 30%;
+        }
+        @media screen and(max-width: $plan-breakpoint_2) {
+            flex: 0 1 40%;
+        }
+        @media screen and(max-width: $plan-breakpoint_3) {
+            padding: 97px 0 50px 0;
+            flex-basis: 100%;
+        }
+    }
+    &__option {
+        margin-bottom: 130px;
+        &-column:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        &-icon {
+            color: $check-mark-bg;
+            font-size: 12px;
+            margin-right: 25px;            
+        }
+        &-text {
+            text-transform: capitalize;
+            @include font(400, 14px, 30px, $text-color);
+        }
+    }
+    &__button-wrap {
+        margin-top: auto;
+    }
+    &__cost {
+        margin-bottom: 20px;
+        text-transform: capitalize;
+        text-align: center;
+        @include font(500, 25px, 30px, $title-color);
+        & span {
+            text-transform: lowercase;
+            color: grey;
+        }
+    }
+    &__button {
+        @include button(177.88px, 45px, 50px, $button-bg);
+        border: 2px solid $element-color;
+        &-text {
+            text-transform: capitalize;
+            @include font(700, 16px, 19px, $element-color);
+        }
+    }
+}
+// plan f
+// map s
+    .map {
+        padding: 70px 0;
+        background: $section-bgcolor-1;
+        &__title {
+            margin-bottom: 20px;
+            text-align: center;
+            @include font(500, 35px, 50px, $title-color);
+        }
+        &__subtitle {
+            text-align: center;
+            @include font(500, 16px, 30px, $text-color);
+        }
+        &__img {
+            height: 540px;
+            margin-top: 155px;
+            @media screen and(max-width: $map-breakpoint_1) {
+                margin-top: 75px;
+            }
+            &-item {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }   
+}
+// map f
+// sponsor s
+.sponsor {
+    background: $section-bgcolor-3;
+    padding: 50px 0;
+    &__row {
+        @extend %flex-wrap;
+        justify-content: space-evenly;
+        @media screen and(max-width: $sponsor-breakpoint_1) {
+            flex-flow: column;
+            align-items: center;
+        }
+    }
+    &__column {
+        width: 200px;
+        height: 114px;
+        margin: 12px;
+        border: 2px solid red;
+        &-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+    }    
+}
+// sponsor f
+// customer s
+.customer {
+    background: $section-bgcolor-3;
+    padding: 70px 0;
+    &__title {
+        margin-bottom: 20px;
+        text-align: center;
+        @include font(500, 35px, 50px, $title-color);
+    }
+    &__subtitle {
+        text-align: center;
+        @include font(500, 16px, 30px, $text-color);
+    }
+    &__slider {
+        padding: 60px 0 100px 0;
+        &-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 147px;
+            height: 60px;
+            background: transparent;
+            &-prev,
+            &-next {
+                position: static;
+                @include button($width: 60px, $height: 60px, $border-radius: 50%, $bgcolor: $button-bg);
+                border: 2px solid $element-color;
+                &::after {
+                    display: none;
+                }
+                & .fa-arrow-left {
+                    color: $element-color;
+                    font-size: 20px;
+                }
+            }
+            &-next {
+                &-text {
+                    transform: rotateY(180deg);
+                }
+            }
+        }
+    }
+    .swiper-slide.customer__slide {
+        min-height: 245px;
+    }
+    &__slide {
+        box-sizing: border-box;
+        width: 400px;
+        height: 230px;
+        padding: 30px;
+        background: $element-bgcolor;
+        border: 2px solid $element-color;
+        border-radius: 10px;
+    }
+    &__person {
+        display: flex;
+        justify-content: space-between;
+        &-info {
+            display: flex;
+            align-items: center;
+        }
+    }
+    &__avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 20px;
+        &-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }    
+    &__name-text1 {
+        text-transform: capitalize;
+        @include font(500, 18px, 30px, $title-color);
+    }
+    &__name-text2 {
+        text-transform: capitalize;
+        @include font(400, 14px, 30px, $text-color);
+    }
+    &__rating {
+        display: flex;
+        align-items: center;
+        &-item {
+            margin-right: 12px;
+            @include font(400, 16px, 30px, $title-color);
+        }
+        &-icon .fa-star {
+            font-size: 14px;
+            color: $element-star-color;
+        }
+    }      
+    &__text {
+        @include font(400, 16px, 30px, $title-color);
+    }
+    &__control {
+        position: absolute;
+        bottom: 0;
+        @extend %flex-wrap;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    &__pagination {
+        position: static;
+        display: flex;
+        text-align: left;
+        padding: 12px 0 12px 0;
+        margin-right: 25px;
+        &-bullet {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: $element-bullet-color;
+            transition: background .2s;
+            cursor: pointer;
+            &:not(:last-child) {
+                margin-right: 12px;
+            }
+            &_active {
+                background: $element-color;
+            }
+        }
+    }
+    .customer__pagination.swiper-pagination-bullet {
+        width: 15px;
+        height: 15px;
+    }
+}
+// customer f
+// subscribe s
+.subscribe {
+    padding: 58px 0;
+    background: $section-bgcolor-1;
+    &__wrap {
+        @extend %flex-wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__text {
+        margin: 0 60px 0 0;
+        @media screen and (max-width: 1020px){
+            text-align: center;
+            width: 100%;            
+            margin: 0 0 40px 0;
+        }
+    }
+    &__title {
+        margin-top: 20px;
+        text-transform: capitalize;
+        @include font(500, 35px, 45px, $title-color); 
+    }
+    &__subtitle {
+        @include font(400, 16px, 30px, $text-color); 
+    }
+    &__btn {
+        @include button($bg-hover-color:$header-button-color, $box-shadow-hover: 2px 2px 2px);
+        box-shadow: 0 18px 15px 0px rgba(245, 56, 56, 0.35);
+        @media screen and (max-width: 1020px){
+            margin: 0 auto;
+        }
+        &-text {
+            text-transform: capitalize;
+            @include font(700, 16px, 25px, $button-default-text-color)
+        }
+    }
+}
+// subscribe f
+// footer s
+.footer {
+    padding: 79px 0 30px 0;
+    background: $section-bgcolor-4;
+    &__wrap {
+        @extend %flex-wrap;
+        justify-content: space-between;
+    }
+    &__info {
+        flex: 0 1 30%;
+        margin-right: 120px;
+        &-text {
+            margin: 20px 0 30px 0;
+            @include font(500, 16px, 30px, $text-color); 
+        }
+        @media screen and(max-width: $footer-breakpoint_1) {
+            flex: 0 1 100%;
+            margin: 0 0 30px 0;
+        }
+    }
+    &__social {
+        &-link {
+            width: 33.6px;
+            height: 33.6px;
+            margin-right: 20px;
+            border-radius: 50%;
+            transition: background .2s;
+            background: $element-bgcolor;
+            &:hover {
+                background: $element-color;
+            }
+            i {
+                transition: color .2s;
+                color: $element-color;
+            }
+            &:hover i {
+                color: $button-default-text-color;
+            }
+        }
+    }
+    &__copyright {
+        margin-top: 30px;
+        @include font(400, 16px, 30px, $copyright-color); 
+    }
+    &__nav {
+        @extend %flex-wrap;
+        justify-content: space-between;
+        flex: 0 1 50%;
+        &-column {
+            text-transform: capitalize;
+            list-style-type: none;
+            &:not(:last-child) {
+                margin-right: 30px;
+            }
+        }
+        @media screen and(max-width: $footer-breakpoint_1) {
+            flex: 0 1 100%;
+        }
+        &-title a {
+            @include font(500, 18px, 30px, $title-color); 
+            text-decoration: none;
+            transition: text-shadow .2s;
+        }
+        &-title-link:hover {
+            text-shadow: 1px 1px 1px;
+        }
+        &-subtitle {
+            :first-child {
+                margin-top: 20px;
+            }
+            a {
+                @include font(400, 16px, 30px, $text-color); 
+                text-decoration: none;
+                transition-property: text-shadow, color;
+                transition-duration: .2s;
+            }
+        }
+        &-link:hover {
+            color: $element-color;
+            text-shadow: 1px 1px 1px;
+        }
+    }
+}
+// footer f

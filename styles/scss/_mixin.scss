@@ -1,0 +1,85 @@
+@mixin font($weight, $size, $line_height, $color) {
+    font: {
+        weight: $weight;
+        style: normal;
+        size: $size;
+      }
+    line-height: $line_height;
+    color: $color;
+}
+// reusable mixin, just specify the parameters
+@mixin button($width: 250px, $height: 60px, $border-radius: 10px, $bgcolor: $element-color, $bg-hover-color: $button-hover-bgcolor, $button-hover-textcolor: $button-hover-text-color, $box-shadow-hover: 0px 0px) {
+  @extend %center-xy-flex;
+  box-sizing: border-box;
+  width: $width;
+  height: $height;
+  border-radius: $border-radius;
+  background-color: $bgcolor;
+  border: none;
+  transition-property: background, box-shadow;
+  transition: .2s;
+  cursor: pointer;
+  &:hover {
+    background-color: $bg-hover-color;
+    box-shadow: $box-shadow-hover;
+  }
+  &-text {
+    transition: color .2s;
+  }
+  &:hover &-text {
+    color: $button-hover-textcolor;
+  }
+}
+@mixin burger ($width, $height, $line-height, $line-color) {  // reusable mixin, just specify the parameters
+  width: $width;
+  height: $height;
+  &-line {
+    width: 100%;
+    height: $line-height;
+    background: $line-color;
+    transition: .3s;
+    &::before,
+    &::after {
+      height: $line-height;
+      background: $line-color;
+      transition: transform .3s;
+    }
+    &::before {
+      top: 50%;
+      transform: translateY(-50%);
+      width: 80%;
+    }
+    &::after {
+      width: 60%;
+      bottom: 0;
+    }
+    &_active {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 0;
+    }
+    &_active::before,
+    &_active::after {
+      top: 50%;
+      width: 100% !important;
+      transform: translateY(-50%) !important;
+    }
+    &_active::before {
+      transform: translateY(-50%) rotate(45deg) !important;
+    }
+    &_active::after {
+      transform: translateY(-50%) rotate(-45deg) !important;
+    }
+  }
+}
+@mixin pseudo-element ($width, $height, $bgcolor: $line-color_1, $top: 50%, $left: 100%, $transform: translate(0, -50%)) {
+  content: '';
+  position: absolute;
+  width: $width;
+  height: $height;
+  background: $bgcolor;
+  top: $top;
+  left: $left;
+  transform: $transform;
+} 

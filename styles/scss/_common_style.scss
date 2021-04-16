@@ -1,0 +1,64 @@
+.wrapper {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    &__img {
+        margin-right: 10px;
+    }
+    &__text {
+        display: flex;
+    }
+    &__text > span {
+        text-transform: capitalize;
+        @include font(500, 20px, 24px, $title-color); 
+    }
+    &__text > strong {
+        text-transform: uppercase;
+        @include font(500, 20px, 24px, $title-color); 
+    } 
+}
+.burger {
+    position: relative;
+    cursor: pointer;
+    &__line {
+        border-radius: 1px;
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 100%;
+            border-radius: 1px;
+        }
+    }
+}
+.lock {
+    overflow: hidden;
+}
+.brand__name {
+    text-transform: capitalize;
+    & span{
+        text-transform: uppercase;
+    }
+}
+.option__column {
+    display: flex;
+    align-items: center;
+}
+.option__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.social {
+    @extend %flex-wrap;
+}
+.social__link {
+    @extend %center-xy-flex;
+    text-decoration: none;
+}
